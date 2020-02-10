@@ -1,0 +1,21 @@
+#! /usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ --builddirectory=debian/build
+
+override_dh_auto_configure:
+	dh_auto_configure -- -D__LIB=lib -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE="None"
+
+override_dh_auto_install-arch:
+	$(MAKE) -C debian/build install DESTDIR=$(CURDIR)/debian/tmp
+	# remove them for now, will be included in a next upload
+	# (requires python and matplotlib)
+	rm -Rf debian/tmp/usr/share/dwarves/runtime/python debian/tmp/usr/bin/ostra-cg
+
+get-orig-source:
+	sh debian/get-orig.sh
+
+.PHONY: get-orig-source

@@ -1,0 +1,155 @@
+dwarves-dfsg (1.16-1ubuntu1) unstable; urgency=medium
+
+  * Checkout tags/v1.16
+  * tag v1.16
+  * Tagger: Arnaldo Carvalho de Melo <acme@redhat.com>
+  * Date:   Mon Dec 16 11:44:17 2019 -0300
+  * 
+  * v1.16 changes:
+  * 
+  * BTF encoder:
+
+ -- Changcheng Liu <changcheng.liu@aliyun.com>  Mon, 10 Feb 2020 23:11:23 +0800
+
+dwarves-dfsg (1.15-1) unstable; urgency=medium
+
+  [ Theodore Y. Ts'o ]
+  * New upstream release (changes since 1.12, closes: #931142):
+    - Add support for BTF encoding which is a much more compact way
+      of encoding C type information.  It is derived from CTF (Compact
+      C-Type format) and is designed for use with eBPF.
+    - Add initial support for the DWARF DW_TAG_partial_unit
+    - Improve support for pretty-printing unions
+    - Teach pahole to show where a struct was used, via the -I option
+    - Use the running kernel by default when no file name is passed
+    - Improve man pages
+    - Support new BTF deduplication algorithm found the Linux kernel's
+      libbpf library, which allows type information for the kernel to
+      be stored in roughly 1% of the space.
+    - Add a new utility, btfdiff, which compares the pretty-printed
+      type information between two kernel images.
+    - Teach pahole to use the BTF information to pretty print structures
+      using the BTF information using "pahole -F btf", which is much faster
+      than using the Dwarf information.
+    - Infer the __packed__ attribute for structures without alignment holes
+      and which violate the natural types' alignment requirements.
+    - Support DWARF5's DW_AT_alignment tag
+    - Add a --compile option to pfunct which produces compileable
+      output for function prototypes in an object file.
+    - Miscellaneous bug fixes
+
+  [ Domenico Andreoli ]
+  * Autopkgtest on libc-bin-dbgsym instead of dwarves-dbgsym. Closes: #923717.
+  * Fix typo in description of no_shared_no_ebl.
+
+ -- Domenico Andreoli <cavok@debian.org>  Tue, 30 Jul 2019 16:58:55 +0200
+
+dwarves-dfsg (1.12-2) unstable; urgency=medium
+
+  * Convert to dh.
+  * Fix Homepage and Vcs-Git.
+  * Fix depends on debhelper >= 10.
+  * Remove trailing spaces from the Debian changelog.
+  * Update copyright to copyright-format/1.0. Closes: #919356.
+
+ -- Domenico Andreoli <cavok@debian.org>  Wed, 27 Feb 2019 18:09:08 +0100
+
+dwarves-dfsg (1.12-1) unstable; urgency=medium
+
+  [ Domenico Andreoli ]
+  * New upstram release. Closes: #908563, #779809, #693096,
+  * Migrate to salsa.d.o and enable CI. Closes: #908564.
+  * Migrate to DEP-14.
+  * Drop patch DW_TAG_mutable_type (merged upstream).
+  * Refresh patch no_shared_no_ebl.
+  * Improve package description. Closes: #914527.
+  * Add test executing pahole on itself.
+  * Set debhelper compatibility level to 10.
+  * Start using dh_strip_nondeterminism.
+
+  [ Helmut Grohne ]
+  * Let dh_auto_configure pass cross flags to cmake. Closes: #903506.
+
+ -- Domenico Andreoli <cavok@debian.org>  Mon, 19 Nov 2018 18:11:43 +0100
+
+dwarves-dfsg (1.10-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+
+  [ Robie Basak ]
+  * Fix FTBFS with newer elfutils. (Closes: #764484)
+
+ -- James Cowgill <jcowgill@debian.org>  Thu, 24 Mar 2016 13:01:08 +0000
+
+dwarves-dfsg (1.10-2) unstable; urgency=low
+
+  * Make sure CMake uses standard library location if host has no
+    MultiArch. Closes: #665054.
+
+ -- Thomas Girard <thomas.g.girard@free.fr>  Sat, 16 Jun 2012 10:50:15 +0200
+
+dwarves-dfsg (1.10-1) unstable; urgency=low
+
+  * New upstram release.
+  * Record patches using dpkg-source --commit. Closes: #643102.
+  * Use MultiArch elfutils location. Closes: #665054.
+  * debian/control: change homepage to new location.
+  * debian/watch: change source tarball location.
+  * debian/control: bump Standards-Version: to 3.9.3. No changes needed.
+  * debian/rules: add missing build-arch and build-indep targets.
+
+ -- Thomas Girard <thomas.g.girard@free.fr>  Fri, 08 Jun 2012 20:55:03 +0200
+
+dwarves-dfsg (1.9-1) unstable; urgency=low
+
+  * Acknowledge 1.3-1.1 NMU (thanks to Michael Banck) and resynch with
+    Ubuntu release (thanks Bhavani Shankar).
+  * New upstream release:
+    - patch from 1.3-1.1ubuntu1 no longer needed.
+    - new manpage for pahole.
+    - new program scncopy to copy ELF sections.
+    - fixes crash when encountering a pointer in a struct. Closes: #513573.
+    - recognizes C++ classes. Closes: #621530.
+    - no longer FTBFS with gcc 4.6. Closes: #625158.
+  * Remove libebl detection and use. Closes: #534529.
+  * debian/control:
+    - bump debhelper level to 7.
+    - add Vcs-Git: and Vcs-Browser:
+    - bump Standards-Version: to 3.9.2.
+    - add zlib1g-dev build dependency.
+  * debian/copyright: add missing copyright holders.
+  * debian/rules:
+    - allow to be compiled twice in a row.
+    - ensure package building aborts if a program is not installed.
+    - use dh_prep instead of dh_clean -k.
+  * debian/dwarves.install:
+    - include syscse. Closes: #517180.
+    - add ctracer. See README.ctracer for information on how to use it.
+  * Switch to dpkg-source 3.0 (quilt) format.
+  * Fix many lintian warnings.
+
+ -- Thomas Girard <thomas.g.girard@free.fr>  Mon, 02 May 2011 19:34:31 +0200
+
+dwarves-dfsg (1.3-1.1ubuntu1) maverick; urgency=low
+
+  * dwarwes-dfsg-1.3/src/dwarves.c:
+    + Add missing headers to fix undefined reference to `S_IS*' linker
+      error with gcc 4.5 LP: #602367
+
+ -- Bhavani Shankar <bhavi@ubuntu.com>  Tue, 06 Jul 2010 22:20:38 +0530
+
+dwarves-dfsg (1.3-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Applied patch by Peter Green (Closes: #534084)
+    + cmake/modules/FindDWARF.cmake: Removed libebl support.
+    + debian/control (Build-Depends): Removed libebl-dev.
+
+ -- Michael Banck <mbanck@debian.org>  Sun, 29 Nov 2009 12:45:58 +0100
+
+dwarves-dfsg (1.3-1) unstable; urgency=low
+
+  * Initial release, based on Domenico Andreoli <cavok@debian.org> work.
+    Closes: #436522.
+
+ -- Thomas Girard <thomas.g.girard@free.fr>  Mon, 24 Dec 2007 10:14:17 +0100

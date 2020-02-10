@@ -1,0 +1,2 @@
+Test-Command: pahole /sbin/ldconfig
+Depends: dwarves, libc-bin-dbgsym

@@ -1,0 +1,32 @@
+Source: dwarves-dfsg
+Priority: extra
+Maintainer: Thomas Girard <thomas.g.girard@free.fr>
+Uploaders: Domenico Andreoli <cavok@debian.org>
+Build-Depends: debhelper (>= 10), cmake (>= 2.4.8), zlib1g-dev, libelf-dev, libdw-dev (>= 0.141)
+Standards-Version: 3.9.3
+Section: utils
+Vcs-Browser: https://salsa.debian.org/debian/dwarves
+Vcs-Git: https://salsa.debian.org/debian/dwarves.git
+Homepage: http://acmel.wordpress.com
+
+Package: dwarves
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: set of advanced DWARF utilities
+ This package contains tools that use the DWARF debugging information
+ inserted in ELF binaries by the compiler. This information is used by
+ debuggers (e.g. GDB), and other tools such as systemtap.
+ .
+ Utilities in the dwarves suite include:
+ .
+  - pahole: finds alignment holes in structs and classes in languages
+    such as C/C++, CPU cacheline alignment. Helps repack those structures
+    to achieve more cache hits.
+  - codiff: a diff like tool to compare the effects changes in source
+    code generate on the resulting binaries
+  - pfunct: displays all sorts of information about functions, inlines, etc.
+  - pdwtags: pretty-prints DWARF information
+  - pglobal: lists global symbols
+  - prefcnt: counts DWARF tags usage
+  - syscse: system call sign extender
+  - dtagnames: lists tag names
